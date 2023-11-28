@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "./style.css">
+</head>
+<body>
+   
+    <script>
+        function getComputerChoice(){
+            let choices = ["rock", "paper","scissors"];
+            //length = 3
+            let i  = Math.floor(Math.random() * (choices.length - 1)); // returns random int from 0 to 2
+            return(choices[i]);
+        }
+        function getPlayerChoice() {
+            let choice = prompt("Rock, Paper, or Scissors?");
+            if (choice != null) {
+                choice = choice.toLowerCase();
+            }
+            return choice;
+        }
+        //computer rock and user scissors -> "You lose! Rock beats Scissors"
+        //computer paper and user scissors -> "You win! Scissors beats Paper"
+        //computer scissors and user scissors -> "Tie!"
+        //computer rock and user paper -> "You win! Paper beats Rock"
+        //computer paper and user paper -> "Tie!"
+        //computer scissors and user paper -> "You lose! Scissors beats Paper"
+        //computer rock and user rock -> "Tie"
+        //computer paper and user rock -> "You lose! Paper beats Rock"
+        //computer scissors and user rock -> "You win! Rock beats Scissors"
+        function round(playerSelection, computerSelection){
+            let winner = "";
+            if (playerSelection == computerSelection) {
+                alert("Tie!")
+                return("tie")
+            }
+            else if (playerSelection == "scissors") {
+                if (computerSelection == "rock"){
+                    alert("You lose! Rock beats Scissors");
+                    winner = "computer";
+                    return(winner);
+                }
+                else if (computerSelection =="paper") { 
+                    alert("You win! Scissors beats Paper");
+                    winner = "you";
+                    return(winner);
+                }
+            }
+            else if (playerSelection == "paper") {
+                if (computerSelection == "rock"){
+                    alert("You win! Paper beats Rock");
+                    winner = "you";
+                    return(winner);
+                }
+                else if (computerSelection =="scissors") { 
+                    alert("You lose! Scissors beats Paper");
+                    winner = "computer";
+                    return(winner);
+                }
+            }
+            else if (playerSelection == "rock") {
+                if (computerSelection == "paper"){
+                    alert("You lose! Paper beats Rock");
+                    winner = "computer";
+                    return(winner);
+                    
+                }
+                else if (computerSelection =="scissors") { 
+                    alert("You win! Rock beats Scissors");
+                    winner = "you";
+                    return(winner);
+                    
+                }
+            }
+            
+        }
+        function game(){
+            playerScore = 0;
+            compScore = 0;
+            //could also use a while loop and break once either score is 5
+            for (let i = 0; i <5; i++){
+                player = getPlayerChoice();
+                comp = getComputerChoice();               
+                result = round(player, comp)
+                if (result = "you") {
+                    playerScore +=1;
+                }
+                else { //result = comp
+                    compScore +=1;
+                }
+            }
+            if (playerScore > compScore) {
+                alert("You win the game!")
+            }
+            else {
+                alert("You lose lol a computer beat you:p")
+            }
+        }
+        
+       game();
+    </script>
+</body>
+</html>
