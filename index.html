@@ -7,8 +7,37 @@
     <link rel = "stylesheet" href = "./style.css">
 </head>
 <body>
-   
+   <div class="container">
+    <p>Wanna play a game</p>
+    <button class ="rock"></button>
+    <button id ="paper"></button>
+    <button id ="scissors">Scissors</button>
+   </div>
     <script>
+        window.addEventListener('load', () => {
+            alert('Welcome to Rock Paper Scissors\nPick your first choice and the game will start')
+        });
+        let you = 0;
+        let comp = 0;
+        const rock = document.querySelector(".rock"); //could also just use queryselector
+        let paper = document.querySelector("#paper");
+        
+        rock.textContent = 'Rock';
+        paper.textContent = 'Paper';
+
+        let scissors = document.querySelector('#scissors');
+
+        const container = document.querySelector(".container");
+        const result = document.createElement("div");
+        result.classList.add("result");
+        result.textContent = "Result: ";
+        container.appendChild(result);
+
+        
+        rock.addEventListener('click', ()=> round('rock'));// ()=> round());
+        paper.addEventListener('click', ()=>round('paper'));
+        scissors.addEventListener('click', ()=>round('scissors'));
+        
         function getComputerChoice(){
             let choices = ["rock", "paper","scissors"];
             //length = 3
@@ -20,87 +49,90 @@
             if (choice != null) {
                 choice = choice.toLowerCase();
             }
+            console.log(choice);
             return choice;
         }
-        //computer rock and user scissors -> "You lose! Rock beats Scissors"
-        //computer paper and user scissors -> "You win! Scissors beats Paper"
-        //computer scissors and user scissors -> "Tie!"
-        //computer rock and user paper -> "You win! Paper beats Rock"
-        //computer paper and user paper -> "Tie!"
-        //computer scissors and user paper -> "You lose! Scissors beats Paper"
-        //computer rock and user rock -> "Tie"
-        //computer paper and user rock -> "You lose! Paper beats Rock"
-        //computer scissors and user rock -> "You win! Rock beats Scissors"
-        function round(playerSelection, computerSelection){
+        
+        function round(playerSelection) {
+            let choices = ["rock", "paper","scissors"];
+            console.log('Round!');
+            computerSelection = getComputerChoice();
+            console.log(playerSelection);
+            console.log(computerSelection);
+
+            if (playerSelection != null) {
+                playerSelection = playerSelection.toLowerCase();
+            }
             let winner = "";
+            
             if (playerSelection == computerSelection) {
-                alert("Tie!")
-                return("tie")
+                console.log("Tie, no points this round")
+                    //return("tie")
             }
             else if (playerSelection == "scissors") {
                 if (computerSelection == "rock"){
-                    alert("You lose! Rock beats Scissors");
-                    winner = "computer";
-                    return(winner);
+                    console.log("You lose this round! Rock beats Scissors");
+                    comp++;
+                    console.log("comp",comp);
+                    //winner = "computer";
+                    //return(winner);
                 }
                 else if (computerSelection =="paper") { 
-                    alert("You win! Scissors beats Paper");
-                    winner = "you";
-                    return(winner);
+                    console.log("You win this round! Scissors beats Paper");
+                    you++;
+                    console.log("you",you);
+                    //winner = "you";
+                    //return(winner);
                 }
             }
             else if (playerSelection == "paper") {
                 if (computerSelection == "rock"){
-                    alert("You win! Paper beats Rock");
-                    winner = "you";
-                    return(winner);
+                    console.log("You win this round! Paper beats Rock");
+                    you++;
+                    console.log("you", you);
+                    //winner = "you";
+                    //return(winner);
                 }
                 else if (computerSelection =="scissors") { 
-                    alert("You lose! Scissors beats Paper");
-                    winner = "computer";
-                    return(winner);
+                    console.log("You lose this round! Scissors beats Paper");
+                    comp++;
+                    //winner = "computer";
+                    //return(winner);
+                    console.log("comp", comp);
                 }
             }
             else if (playerSelection == "rock") {
                 if (computerSelection == "paper"){
-                    alert("You lose! Paper beats Rock");
-                    winner = "computer";
-                    return(winner);
+                    console.log("You lose this round! Paper beats Rock");
+                    comp++;
+                    console.log("comp",comp);
+                    //winner = "computer";
+                    //return(winner);
                     
                 }
                 else if (computerSelection =="scissors") { 
-                    alert("You win! Rock beats Scissors");
-                    winner = "you";
-                    return(winner);
-                    
+                    console.log("You win this round! Rock beats Scissors");
+                    you++;
+                    console.log("you",you);
+                  
                 }
             }
-            
-        }
-        function game(){
-            playerScore = 0;
-            compScore = 0;
-            //could also use a while loop and break once either score is 5
-            for (let i = 0; i <5; i++){
-                player = getPlayerChoice();
-                comp = getComputerChoice();               
-                result = round(player, comp)
-                if (result = "you") {
-                    playerScore +=1;
-                }
-                else { //result = comp
-                    compScore +=1;
-                }
+            result.textContent = "Result: You: "+ you+ " Comp: "+ comp;
+            if (you == 5) {
+                console.log("Congratulations, You Win \n resetting the points");
+                result.textContent = "Congratulations, You Win. resetting the points";
+                you = 0;
+                comp = 0;
+            } else if (comp == 5) {
+                console.log("You lost \n resetting the points");
+                result.textContent = "Congratulations, You Win. resetting the points";
+                you = 0;
+                comp = 0;
             }
-            if (playerScore > compScore) {
-                alert("You win the game!")
-            }
-            else {
-                alert("You lose lol a computer beat you:p")
-            }
+           
+            container.appendChild(result);
         }
         
-       game();
     </script>
 </body>
 </html>
